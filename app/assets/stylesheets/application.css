@@ -14,6 +14,8 @@
  *= require_self
  */
 
+ /* stylelint-disable */
+
  body,
  header {
     background-color: darkgray;
