@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+ body,
+ header {
+    background-color: darkgray;
+ }
+
+ .button {
+    background-color: indigo;
+ }
+
+ .delete {
+   background-color: red;
+ }
+
+ .section {
+    background-color: rgb(175, 170, 204);
+ }
