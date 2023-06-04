@@ -1,0 +1,16 @@
+<section id='recipes' class="recipes_index">
+  <div class="recipe_index">
+    <% @recipes.each do |recipe| %>
+      <div class="single_recipe">
+        <div>
+          <div>
+            <h5><%= link_to recipe.name, recipe %></h5>
+            <%= button_to 'Remove', recipe_path(recipe), method: :delete, class: "delete" %>
+          </div>
+          <p><%= recipe.description %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+    <%= link_to 'Add Recipe', new_recipe_path, class: "button"  %>
+</section>

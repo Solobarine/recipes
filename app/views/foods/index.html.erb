@@ -1,0 +1,33 @@
+<section id='foods'>
+    <%= link_to 'Add Food', new_food_path, class: 'link add_food' %>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="food_title">Food</th>
+          <th scope="col" class="food_title">Measurement unit</th>
+          <th scope="col" class="food_title">Quantity</th>
+          <th scope="col" class="food_title">Unit price</th>
+          <th scope="col" class="food_title">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @foods.each_with_index do |food, index| %>
+          <tr class="<%= index.even? ? 'light' : 'dark' %>">
+            <td class="food_data"><%= food.name %></td>
+            <td class="food_data"><%= food.measurement %></td>
+            <td class="food_data"><%= food.quantity %></td>
+            <td class="food_data"><%= number_to_currency(food.price) %></td>
+            <td class="food_data">
+              <% if can? :destroy, food %>
+                <%= button_to 'Delete', food_path(food), method: :delete, class: "food_delete" %>
+              <% else %>
+                n/a
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+<section id='one_recipe'>
+  <header class='text-center'>
+    <h1 class="">Recipe <%= @recipe.name %></h1>
+  </header>
+  <main class='recipe'>
+    <div>
+      <p>Preparation time: <%= @recipe.preparation_time %></p>
+      <br>
+      <p>Cooking time: <%= @recipe.cooking_time %></p>
+      <br>
+      <p><%= @recipe.description %></p>
+      <br>
+    </div>
+    <div >
+      <p id="public"><%= publish(@recipe) if can? :manage, @recipe %></p>
+    </div>
+  </main>
+  <div class='recipe__btn-wrap'>
+    <%= link_to 'Generate shopping list', general_shopping_list_path, class: "link" if can? :manage, @recipe %>
+    <%= link_to 'Add ingredient', new_recipe_ingredient_path(@recipe), class: "link" if can? :manage, @recipe %>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="recipe_table_title">Food</th>
+          <th scope="col" class="recipe_table_title">Quantity</th>
+          <th scope="col" class="recipe_table_title">Value</th>
+          <th scope="col" class="recipe_table_title">Actions</th>
+
+      </thead>
+      <tbody>
+        <% @recipe.ingredients.each_with_index do |ingredient, index| %>
+          <tr class="<%= index.even? ? 'light' : 'dark' %>">
+            <td><%= ingredient.food.name %></td>
+            <td><%= ingredient.quantity %></td>
+            <td><%= number_to_currency(ingredient.value) %></td>
+            <td>
+              <% if can? :manage, @recipe %>
+                <%= link_to 'Modify', edit_ingredient_path(ingredient), class: "delete" %>&nbsp;
+                <%= button_to 'Delete', ingredient_path(ingredient), method: :delete, class: "delete" %>
+              <% else %>
+                <p>n/a</p>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</section>

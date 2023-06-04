@@ -1,0 +1,50 @@
+<% if @public_recipes.empty? %>
+  <div class='text-center'>
+    <h1 class="sorry">Hello! We don't have any recipes yet!</h1>
+    <p>Please be the first to create one!</p>
+    <% if current_user %>
+      <%= link_to 'Create a recipe', new_recipe_path, class: 'link' %>
+    <% else %>
+      <%= link_to 'Login', new_user_session_path, class: 'link' %>
+    <% end %>
+  </div>
+<% else %>
+  <h1 class="p_recipe_title">Public Recipes</h1>
+  <% @public_recipes.each do |recipe| %>
+    <% if can? :read, recipe %>
+      <%= link_to recipe do %>
+        <div class="p_recipe">
+          <h5><%= recipe.name %></h5>
+            <div>
+              <span>Total food items:</span>
+              <span><%= recipe.foods.length %></span>
+            </div>
+            <p id="p_recipe_username">By: <%= recipe.user.name %></p>
+            <div>
+              <span>Total price:</span>
+              <span>$<%= @totals[recipe.id] %></span>
+            </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="p_recipe">
+        <div>
+          <div>
+            <h5><%= recipe.name %></h5>
+            <div>
+              <div>
+                <span>Total food items:</span>
+                <span><%= recipe.foods.length %></span>
+              </div>
+              <div>
+                <span>Total price:</span>
+                <span>$<%= @totals[recipe.id] %></span>
+              </div>
+            </div>
+          </div>
+          <p>By: <%= recipe.user.name %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

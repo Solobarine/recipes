@@ -1,0 +1,29 @@
+<section id='shopping-list'>
+  <header>
+    <h1>Shopping List</h1>
+  </header>
+  <main>
+    <span>Amount of items to buy: <%= @shopping_list.size %></span>
+    <span>Total value of food needed: <%= number_to_currency(@shopping_list_value) %></span>
+  </main>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="public_recipe_title">Food</th>
+          <th scope="col" class="public_recipe_title">Quantity</th>
+          <th scope="col" class="public_recipe_title">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shopping_list.each_with_index do |ingredient, index| %>
+          <tr>
+            <td class=><%= ingredient.food.name %></td>
+            <td><%= ingredient.quantity * ingredient.food.quantity %> <%= ingredient.food.measurement %></td>
+            <td><%= number_to_currency(ingredient.quantity * ingredient.food.price) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
